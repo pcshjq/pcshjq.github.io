@@ -1,23 +1,11 @@
 window.fbAsyncInit = function () {
     Parse.FacebookUtils.init({
         appId: '1675828652651130', // Facebook App ID
-        status: true,  // check Facebook Login status
+        status: false,  // check Facebook Login status
         cookie: true,  // enable cookies to allow Parse to access the session
         xfbml: true,  // initialize Facebook social plugins on the page
         version: 'v2.3' // Facebook Graph API version
     });
-    /*Parse.FacebookUtils.logIn(null, {
-        success: function (user) {
-            if (!user.existed()) {
-                console.log("User signed up and logged in through Facebook!");
-            } else {
-                console.log("User logged in through Facebook!");
-            }
-        },
-        error: function (user, error) {
-            console.log("User cancelled the Facebook login or did not fully authorize.");
-        }
-    });*/
 };
 
 (function (d, s, id) {
@@ -60,6 +48,7 @@ $(function () {
         Parse.FacebookUtils.logIn(null, {
             success: function (user) {
                 if (!user.existed()) {
+                    window.location.href = './upload.html';
                     console.log("User signed up and logged in through Facebook!");
                 } else {
                     console.log("User logged in through Facebook!");

@@ -5,5 +5,15 @@
         window.stop();
         window.location.href = './login.html';
     }
-    else $('.dropdown-toggle').append(Parse.User.current().getUsername() + ' <span class="caret">');
+    else {
+        var uname;
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                FB.api('/me', function (response) { uname = response.name; });
+                // var uid = response.authResponse.userID;
+                // var accessToken = response.authResponse.accessToken;
+            } else uname = Parse.User.current().getUsername();
+        });
+        $('.dropdown-toggle').append(uname + ' <span class="caret">');
+    }
 });
