@@ -19,23 +19,6 @@
 </head>
 
 <body>
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '1675828652651130',
-                xfbml: true,
-                version: 'v2.3'
-            });
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/zh_TW/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
     <div class="main-container">
         <form class="form-signin">
             <h2 class="form-signin-heading">PCSHJQ登入</h2>
@@ -45,6 +28,7 @@
             <label for="inputPassword" class="sr-only">密碼</label>
             <input type="password" name="password" class="form-control" placeholder="請輸入密碼" required>
             <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
+            <h4 class="form-signin">或者使用</h4>
             <button class="btn btn-lg btn-info btn-block" onclick="FBLogin()">Facebook登入</button>
         </form>
     </div>
