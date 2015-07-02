@@ -48,13 +48,15 @@ $(function () {
         Parse.FacebookUtils.logIn(null, {
             success: function (user) {
                 if (!user.existed()) {
-                    window.location.href = './upload.html';
                     console.log("User signed up and logged in through Facebook!");
                 } else {
                     console.log("User logged in through Facebook!");
                 }
+                this.addClass('btn-success');
+                window.location.href = './upload.html';
             },
             error: function (user, error) {
+                this.addClass('btn-danger');
                 console.log("User cancelled the Facebook login or did not fully authorize.");
             }
         });
