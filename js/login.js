@@ -1,11 +1,41 @@
+window.fbAsyncInit = function () {
+    Parse.FacebookUtils.init({
+        appId: '1675828652651130', // Facebook App ID
+        status: true,  // check Facebook Login status
+        cookie: true,  // enable cookies to allow Parse to access the session
+        xfbml: true,  // initialize Facebook social plugins on the page
+        version: 'v2.3' // Facebook Graph API version
+    });
+    /*Parse.FacebookUtils.logIn(null, {
+        success: function (user) {
+            if (!user.existed()) {
+                console.log("User signed up and logged in through Facebook!");
+            } else {
+                console.log("User logged in through Facebook!");
+            }
+        },
+        error: function (user, error) {
+            console.log("User cancelled the Facebook login or did not fully authorize.");
+        }
+    });*/
+};
+
+(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) { return; }
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/zh_TW/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
 $(function () {
     Parse.$ = jQuery;
     Parse.initialize("kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu", "nSJVzXIq2iSBdUUBvLKnpW4okjgZ8SV0Dq3E1IFi");
-    // Session validation
     if (Parse.User.current()) {
         window.stop();
         window.location.href = './upload.html';
     }
+
     $('.control-label').hide();
     $('.form-signin').on('submit', function (e) {
         e.preventDefault();
@@ -25,24 +55,19 @@ $(function () {
             }
         });
     });
-});
 
-window.fbAsyncInit = function () {
-    FB.init({
-        appId: '1675828652651130',
-        xfbml: true,
-        version: 'v2.3'
+    $('#btnFB').click(function () {
+        Parse.FacebookUtils.logIn(null, {
+            success: function (user) {
+                if (!user.existed()) {
+                    console.log("User signed up and logged in through Facebook!");
+                } else {
+                    console.log("User logged in through Facebook!");
+                }
+            },
+            error: function (user, error) {
+                console.log("User cancelled the Facebook login or did not fully authorize.");
+            }
+        });
     });
-};
-
-(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) { return; }
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/zh_TW/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-function FBLogin() {
-    FB.login(function () { }, { scope: 'publish_actions' });
-}
+});
