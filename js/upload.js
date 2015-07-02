@@ -1,4 +1,14 @@
-﻿(function (d, s, id) {
+﻿window.fbAsyncInit = function () {
+    Parse.FacebookUtils.init({
+        appId: '1675828652651130', // Facebook App ID
+        status: false,  // check Facebook Login status
+        cookie: true,  // enable cookies to allow Parse to access the session
+        xfbml: true,  // initialize Facebook social plugins on the page
+        version: 'v2.3' // Facebook Graph API version
+    });
+};
+
+(function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) { return; }
     js = d.createElement(s); js.id = id;
@@ -14,7 +24,7 @@ $(function () {
         window.location.href = './login.html';
     }
     else {
-        var uname='';
+        var uname;
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 FB.api('/me', function (response) { uname = response.name; });
