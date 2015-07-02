@@ -26,3 +26,7 @@ $(function () {
         });
     });
 });
+
+function FBLogin() {
+    FB.login(function () { }, { scope: 'publish_actions' });
+}
