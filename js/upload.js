@@ -1,11 +1,12 @@
 ﻿$(function () {
     Parse.$ = jQuery;
     Parse.initialize("kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu", "nSJVzXIq2iSBdUUBvLKnpW4okjgZ8SV0Dq3E1IFi");
-    if (!Parse.User.current()) window.location.href = './login.html';
-});
-
-$(document).ready(function () {
-    $('.dropdown-toggle').append(Parse.User.current().getUsername() + ' <span class="caret">');
+    if (!Parse.User.current()) {
+        window.stop();
+        window.location.href = './login.html';
+    }
+    else $('.dropdown-toggle').append(Parse.User.current().getUsername() + ' <span class="caret">');
+    $('.alert').hide();
     $("#photo_front").fileinput({
         showUpload: false,
         previewFileType: "image",
@@ -32,6 +33,14 @@ $(document).ready(function () {
         var tShop = Parse.Object.extend('tShop', {
             create: function (name, address, telephone, business_hours) {
                 $(':input').prop('disabled', true);
+                $('.file-control').fileinput('disable');
+
+                if ($('.alert').hasClass('alert-success')) $('.alert').toggleClass('alert-success');
+                if ($('.alert').hasClass('alert-danger')) $('.alert').toggleClass('alert-danger');
+                $('.alert').toggleClass('alert-info');
+                $('.alert').show();
+                $('.alert').text('上傳中...');
+
                 this.save({
                     'name': name,
                     'address': address,
@@ -39,11 +48,31 @@ $(document).ready(function () {
                     'business_hours': business_hours,
                     'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : Parse.User.current().getUsername()
                 }, {
-                    success: function (blog) {
-                        window.location.reload();
+                    success: function (upload) {
+                        $('.alert').toggleClass('alert-info');
+                        $('.alert').toggleClass('alert-success');
+                        $('.alert').text('上傳成功 :)');
+                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                        $close.appendTo($('.alert'));
+
+                        $(':input').prop('disabled', false);
+                        $('.file-control').fileinput('enable');
+
+                        $('.form-control').val('');
+                        $('.file-control').fileinput('clear');
+                        $(":input[name='name']").focus();
                     },
-                    error: function (blog, error) {
-                        console.log(blog);
+                    error: function (upload, error) {
+                        $('.alert').toggleClass('alert-info');
+                        $('.alert').toggleClass('alert-danger');
+                        $('.alert').text('上傳失敗 :(');
+                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                        $close.appendTo($('.alert'));
+
+                        $(':input').prop('disabled', false);
+                        $('.file-control').fileinput('enable');
+
+                        console.log(upload);
                         console.log(error);
                     }
                 });
