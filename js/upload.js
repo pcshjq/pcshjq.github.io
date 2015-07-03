@@ -1,6 +1,4 @@
 ﻿window.fbAsyncInit = function () {
-    Parse.$ = jQuery;
-    Parse.initialize("kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu", "nSJVzXIq2iSBdUUBvLKnpW4okjgZ8SV0Dq3E1IFi");
     Parse.FacebookUtils.init({
         appId: '1675828652651130', // Facebook App ID
         status: false,  // check Facebook Login status
@@ -29,6 +27,8 @@
 
 
 $(function () {
+    Parse.$ = jQuery;
+    Parse.initialize("kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu", "nSJVzXIq2iSBdUUBvLKnpW4okjgZ8SV0Dq3E1IFi");
     $('.alert').hide();
     $("#photo_front").fileinput({
         showUpload: false,
