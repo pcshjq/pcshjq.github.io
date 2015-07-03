@@ -6,7 +6,22 @@
         xfbml: true,  // initialize Facebook social plugins on the page
         version: 'v2.3' // Facebook Graph API version
     });
-    $(document).trigger('FBSDKLoaded');
+    // $(document).trigger('FBSDKLoaded');
+    FB.getLoginStatus(function (response) {
+        if (response.status === 'connected') {
+            FB.api('/me', function (response) {
+                $('.dropdown-toggle').append(response.name() + ' <span class="caret">');
+            });
+            var uid = response.authResponse.userID;
+            var accessToken = response.authResponse.accessToken;
+        } else if (Parse.User.current()) {
+            $('.dropdown-toggle').append(Parse.User.current().getUsername() + ' <span class="caret">');
+
+        } else {
+            window.stop();
+            window.location.href = './login.html';
+        }
+    });
 };
 
 (function (d, s, id) {
@@ -22,34 +37,9 @@ $(function () {
     Parse.$ = jQuery;
     Parse.initialize("kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu", "nSJVzXIq2iSBdUUBvLKnpW4okjgZ8SV0Dq3E1IFi");
 
-    $(document).bind('FBSDKLoaded', function () {
+    /*$(document).bind('FBSDKLoaded', function () {
         console.log('FB loaded')
-        if (Parse.User.current()) {
-            console.log('log1')
-            var uname;
-            if (Parse.FacebookUtils.isLinked(Parse.User.current())) {
-                console.log('log11')
-                FB.api('/me', function (response) {
-                    console.log('log13')
-                    uname = response.name;
-                    console.log('log14')
-                    console.log(uname)
-                });
-                console.log('log14')
-            } else {
-                console.log('log21')
-                uname = Parse.User.current().getUsername();
-            }
-            console.log('log3')
-            $('.dropdown-toggle').append(uname + ' <span class="caret">');
-            console.log('log4')
-        } else {
-            console.log('log5')
-
-            window.stop();
-            window.location.href = './login.html';
-        }
-    });
+    });*/
 
     $('.alert').hide();
     $("#photo_front").fileinput({
