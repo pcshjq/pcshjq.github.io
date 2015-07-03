@@ -25,12 +25,27 @@ $(function () {
     $(document).bind('FBSDKLoaded', function () {
         console.log('FB loaded')
         if (Parse.User.current()) {
+            console.log('log1')
             var uname;
-            if (Parse.FacebookUtils.isLinked(Parse.User.current()))
-                FB.api('/me', function (response) { uname = response.name; });
-            else uname = Parse.User.current().getUsername();
+            if (Parse.FacebookUtils.isLinked(Parse.User.current())) {
+                console.log('log11')
+                FB.api('/me', function (response) {
+                    console.log('log13')
+                    uname = response.name;
+                    console.log('log14')
+                    console.log(uname)
+                });
+                console.log('log14')
+            } else {
+                console.log('log21')
+                uname = Parse.User.current().getUsername();
+            }
+            console.log('log3')
             $('.dropdown-toggle').append(uname + ' <span class="caret">');
+            console.log('log4')
         } else {
+            console.log('log5')
+
             window.stop();
             window.location.href = './login.html';
         }
