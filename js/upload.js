@@ -17,7 +17,7 @@ window.fbAsyncInit = function () {
             // var accessToken = response.authResponse.accessToken;
         } else if (Parse.User.current())
             UserName = Parse.User.current().getUsername();
-        $('.dropdown-toggle').text('使用者:' + UserName + ' <span class="caret">');
+        $('.dropdown-toggle').html('使用者:' + UserName + ' <span class="caret">');
     });
 };
 
