@@ -1,4 +1,5 @@
-﻿window.fbAsyncInit = function () {
+﻿var UserName='';
+window.fbAsyncInit = function () {
     Parse.FacebookUtils.init({
         appId: '1675828652651130', // Facebook App ID
         status: false,  // check Facebook Login status
@@ -10,13 +11,13 @@
     FB.getLoginStatus(function (response) {
         if (response.status === 'connected') {
             FB.api('/me', function (response) {
-                $('.dropdown-toggle').append(response.name + ' <span class="caret">');
+                UserName = response.name;
             });
-            var uid = response.authResponse.userID;
-            var accessToken = response.authResponse.accessToken;
-        } else if (Parse.User.current()) {
-            $('.dropdown-toggle').append(Parse.User.current().getUsername() + ' <span class="caret">');
-        }
+            // var uid = response.authResponse.userID;
+            // var accessToken = response.authResponse.accessToken;
+        } else if (Parse.User.current())
+            UserName = Parse.User.current().getUsername();
+        $('.dropdown-toggle').text('使用者:' + UserName + ' <span class="caret">');
     });
 };
 
@@ -81,7 +82,7 @@ $(function () {
                     'address': address,
                     'telephone': telephone,
                     'business_hours': business_hours,
-                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : Parse.User.current().getUsername()
+                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : UserName //Parse.User.current().getUsername()
                 }, {
                     success: function (upload) {
                         $('.alert').toggleClass('alert-info');
