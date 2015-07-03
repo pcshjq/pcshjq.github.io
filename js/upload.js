@@ -1,23 +1,24 @@
 ﻿var UserName='';
 window.fbAsyncInit = function () {
     Parse.FacebookUtils.init({
-        appId: '1675828652651130', // Facebook App ID
+        appId: '1675828652651130',
         status: false,  // check Facebook Login status
         cookie: true,  // enable cookies to allow Parse to access the session
         xfbml: true,  // initialize Facebook social plugins on the page
-        version: 'v2.3' // Facebook Graph API version
+        version: 'v2.3' // Graph API version
     });
     // $(document).trigger('FBSDKLoaded');
     FB.getLoginStatus(function (response) {
-        if (response.status === 'connected') {
+        var user = Parse.User.current();
+        if (Parse.FacebookUtils.isLinked(user) && response.status === 'connected') { // Parse FB user and FB authorized app(connected)
             FB.api('/me', function (response) {
                 UserName = response.name;
                 $('.dropdown-toggle').html('使用者: ' + UserName + ' <span class="caret">');
             });
             // var uid = response.authResponse.userID;
             // var accessToken = response.authResponse.accessToken;
-        } else if (Parse.User.current()) {
-            UserName = Parse.User.current().getUsername();
+        } else if (user) { // Parse Login
+            UserName = user.getUsername();
             $('.dropdown-toggle').html('使用者: ' + UserName + ' <span class="caret">');
         }
     });
@@ -84,7 +85,7 @@ $(function () {
                     'address': address,
                     'telephone': telephone,
                     'business_hours': business_hours,
-                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : UserName //Parse.User.current().getUsername()
+                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : UserName
                 }, {
                     success: function (upload) {
                         $('.alert').toggleClass('alert-info');
