@@ -12,12 +12,14 @@ window.fbAsyncInit = function () {
         if (response.status === 'connected') {
             FB.api('/me', function (response) {
                 UserName = response.name;
+                $('.dropdown-toggle').html('使用者: ' + UserName + ' <span class="caret">');
             });
             // var uid = response.authResponse.userID;
             // var accessToken = response.authResponse.accessToken;
-        } else if (Parse.User.current())
+        } else if (Parse.User.current()) {
             UserName = Parse.User.current().getUsername();
-        $('.dropdown-toggle').html('使用者:' + UserName + ' <span class="caret">');
+            $('.dropdown-toggle').html('使用者: ' + UserName + ' <span class="caret">');
+        }
     });
 };
 
