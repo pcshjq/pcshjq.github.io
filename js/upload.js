@@ -1,11 +1,4 @@
 ﻿window.fbAsyncInit = function () {
-    Parse.FacebookUtils.init({
-        appId: '1675828652651130', // Facebook App ID
-        status: false,  // check Facebook Login status
-        cookie: true,  // enable cookies to allow Parse to access the session
-        xfbml: true,  // initialize Facebook social plugins on the page
-        version: 'v2.3' // Facebook Graph API version
-    });
     var uname;
     FB.getLoginStatus(function (response) {
         if (response.status === 'connected') {
@@ -13,8 +6,8 @@
             // var uid = response.authResponse.userID;
             // var accessToken = response.authResponse.accessToken;
         } else uname = Parse.User.current().getUsername();
+        $('.dropdown-toggle').append(uname + ' <span class="caret">');
     });
-    $('.dropdown-toggle').append(uname + ' <span class="caret">');
 };
 
 (function (d, s, id) {
