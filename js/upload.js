@@ -10,7 +10,7 @@
     FB.getLoginStatus(function (response) {
         if (response.status === 'connected') {
             FB.api('/me', function (response) {
-                $('.dropdown-toggle').append(response.name() + ' <span class="caret">');
+                $('.dropdown-toggle').append(response.name + ' <span class="caret">');
             });
             var uid = response.authResponse.userID;
             var accessToken = response.authResponse.accessToken;
