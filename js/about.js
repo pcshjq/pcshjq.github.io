@@ -37,6 +37,13 @@ $(function () {
         window.location.href = './login.html';
     }
     $.ajax({
+        url: 'dcl/Terms_of_Service.txt',
+        success: function (data) {
+            $('#collapse1').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+        }
+    });
+
+    $.ajax({
         url: 'dcl/Privacy_Policy.txt',
         success: function (data) {
             $('#collapse1').html('<div class="panel-body"><pre>' + data + '</pre></div>');
