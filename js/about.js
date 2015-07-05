@@ -36,7 +36,22 @@ $(function () {
         window.stop();
         window.location.href = './login.html';
     }
-    $("#policy").load("dcl/Privacy_Policy.txt");
-    $("#MIT").load("dcl/MIT.txt");
-    $("#BSD").load("dcl/BSD.txt");
+    $.ajax({
+        url: 'dcl/Privacy_Policy.txt',
+        success: function (data) {
+            $('#collapse1').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+        }
+    });
+    $.ajax({
+        url: 'dcl/MIT.txt',
+        success: function (data) {
+            $('#collapse2').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+        }
+    });
+    $.ajax({
+        url: 'dcl/BSD.txt',
+        success: function (data) {
+            $('#collapse3').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+        }
+    });
 });
