@@ -36,4 +36,7 @@ $(function () {
         window.stop();
         window.location.href = './login.html';
     }
+    $("#collapse1").load("dcl/Privacy_Policy.txt");
+    $("#collapse2").load("dcl/MIT.txt");
+    $("#collapse3").load("dcl/BSD.txt");
 });
