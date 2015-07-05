@@ -39,7 +39,7 @@ $(function () {
     $.ajax({
         url: 'dcl/Terms_of_Service.txt',
         success: function (data) {
-            $('#collapse1').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+            $('#collapse').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
 
