@@ -1,4 +1,4 @@
-window.fbAsyncInit = function () {
+﻿window.fbAsyncInit = function () {
     Parse.FacebookUtils.init({
         appId: '1675828652651130', // Facebook App ID
         status: false,  // check Facebook Login status
@@ -25,6 +25,7 @@ $(function () {
     }
 
     $('.control-label').hide();
+
     $('.form-signin').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serializeArray(),
@@ -32,6 +33,8 @@ $(function () {
             password = data[1].value;
         Parse.User.logIn(username, password, {
             success: function (user) {
+                $('#btnFB').addClass('btn-success');
+                window.name = user.attributes.username;
                 window.location.href = './upload.html';
             },
             error: function (user, error) {
@@ -47,17 +50,21 @@ $(function () {
     $('#btnFB').click(function () {
         Parse.FacebookUtils.logIn(null, {
             success: function (user) {
-                if (!user.existed()) {
+                /*if (!user.existed()) {
                     console.log("User signed up and logged in through Facebook!");
                 } else {
                     console.log("User logged in through Facebook!");
-                }
+                }*/
                 $('#btnFB').addClass('btn-success');
-                window.location.href = './upload.html';
+                $('#btnFB').append('中...');
+                FB.api('/me', function (response) {
+                    window.name = response.name;
+                    window.location.href = './upload.html';
+                });
             },
             error: function (user, error) {
                 $('#btnFB').addClass('btn-danger');
-                console.log("User cancelled the Facebook login or did not fully authorize.");
+                // console.log("User cancelled the Facebook login or did not fully authorize.");
             }
         });
     });

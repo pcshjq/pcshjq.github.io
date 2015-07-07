@@ -1,47 +1,11 @@
-﻿var UserName = '';
-window.fbAsyncInit = function () {
-    Parse.FacebookUtils.init({
-        appId: '1675828652651130',
-        status: false,  // check Facebook Login status
-        cookie: true,  // enable cookies to allow Parse to access the session
-        xfbml: true,  // initialize Facebook social plugins on the page
-        version: 'v2.3' // Graph API version
-    });
-    // $(document).trigger('FBSDKLoaded');
-    FB.getLoginStatus(function (response) {
-        var user = Parse.User.current();
-        if (Parse.FacebookUtils.isLinked(user) && response.status === 'connected') { // Parse FB user and FB authorized app(connected)
-            FB.api('/me', function (response) {
-                UserName = response.name;
-                $('.dropdown-toggle').html('使用者: ' + UserName + ' <span class="caret">');
-            });
-            // var uid = response.authResponse.userID;
-            // var accessToken = response.authResponse.accessToken;
-        } else if (user) { // Parse Login
-            UserName = user.getUsername();
-            $('.dropdown-toggle').html('使用者: ' + UserName + ' <span class="caret">');
-        }
-    });
-};
-
-(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) { return; }
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/zh_TW/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-
-$(function () {
+﻿$(function () {
     Parse.$ = jQuery;
     Parse.initialize("kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu", "nSJVzXIq2iSBdUUBvLKnpW4okjgZ8SV0Dq3E1IFi");
     if (!Parse.User.current()) {
         window.stop();
         window.location.href = './login.html';
     }
-
-    // $(document).bind('FBSDKLoaded', function () { console.log('FB loaded') });
+    else $('.dropdown-toggle').html('使用者: ' + window.name + ' <span class="caret">');
 
     var ShopData = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -61,13 +25,12 @@ $(function () {
                 return settings;
             },
             transform: function (response) {
-                console.log(response);
+                // console.log(response);
                 return response.results;
                 // return response.results.map(function (o) { return { name: o.name } });
             }
         }
     });
-    // ShopData.initialize();
 
     $('.typeahead').typeahead({
         hint: true,
@@ -119,7 +82,7 @@ $(function () {
                     'address': address,
                     'telephone': telephone,
                     'business_hours': business_hours,
-                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : UserName
+                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : window.name
                 }, {
                     success: function (upload) {
                         $('.alert').toggleClass('alert-info');
