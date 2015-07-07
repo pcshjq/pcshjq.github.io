@@ -43,7 +43,7 @@ $(function () {
                 $('.control-label').show();
                 if (!$('.form-signin').hasClass('has-error'))
                     $('.form-signin').toggleClass('has-error');
-                // console.log(error);
+                console.log(error);
             }
         });
     });
