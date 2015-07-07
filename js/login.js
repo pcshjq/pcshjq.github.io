@@ -33,7 +33,8 @@ $(function () {
             password = data[1].value;
         Parse.User.logIn(username, password, {
             success: function (user) {
-                $('#btnFB').addClass('btn-success');
+                $(":input[type='submit']").removeClass('btn-primary');
+                $(":input[type='submit']").addClass('btn-success');
                 window.name = user.attributes.username;
                 window.location.href = './upload.html';
             },
@@ -55,6 +56,7 @@ $(function () {
                 } else {
                     console.log("User logged in through Facebook!");
                 }*/
+                $('#btnFB').removeClass('btn-info');
                 $('#btnFB').addClass('btn-success');
                 $('#btnFB').append('中...');
                 FB.api('/me', function (response) {
@@ -63,6 +65,7 @@ $(function () {
                 });
             },
             error: function (user, error) {
+                $('#btnFB').removeClass('btn-info');
                 $('#btnFB').addClass('btn-danger');
                 // console.log("User cancelled the Facebook login or did not fully authorize.");
             }
