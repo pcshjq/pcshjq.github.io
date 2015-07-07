@@ -1,4 +1,4 @@
-﻿var UserName='';
+﻿var UserName = '';
 window.fbAsyncInit = function () {
     Parse.FacebookUtils.init({
         appId: '1675828652651130',
@@ -41,9 +41,43 @@ $(function () {
         window.location.href = './login.html';
     }
 
-    /*$(document).bind('FBSDKLoaded', function () {
-        console.log('FB loaded')
-    });*/
+    // $(document).bind('FBSDKLoaded', function () { console.log('FB loaded') });
+
+    var ShopData = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: 'https://api.parse.com/1/classes/Shop?where={"name":{"$regex":"%QUERY"}}&limit=20',
+            wildcard: '%QUERY',
+            prepare: function (query, settings) {
+                // settings.type (method for jQuery 1.9+) default is GET
+                settings.dataType = 'json';
+                settings.contentType = "application/json; charset=UTF-8";
+                settings.headers = {
+                    'X-Parse-Application-Id': 'kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu',
+                    'X-Parse-REST-API-Key': '17sSFSMl9IuBt4HvQfeJKvpFVQaS6Gjf3qJApUmz'
+                };
+                settings.url = settings.url.replace('%QUERY', query);
+                return settings;
+            },
+            transform: function (response) {
+                console.log(response);
+                return response.results;
+                // return response.results.map(function (o) { return { name: o.name } });
+            }
+        }
+    });
+    // ShopData.initialize();
+
+    $('.typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    }, {
+        name: 'Shops',
+        display: 'name',
+        source: ShopData
+    });
 
     $('.alert').hide();
     $("#photo_front").fileinput({
