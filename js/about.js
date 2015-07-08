@@ -10,25 +10,25 @@
     $.ajax({
         url: 'dcl/Terms_of_Service.txt',
         success: function (data) {
-            $('#collapse').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+            $('#collapse1').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
     $.ajax({
         url: 'dcl/Privacy_Policy.txt',
         success: function (data) {
-            $('#collapse1').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+            $('#collapse2').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
     $.ajax({
         url: 'dcl/MIT.txt',
         success: function (data) {
-            $('#collapse2').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+            $('#collapse3').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
     $.ajax({
         url: 'dcl/BSD.txt',
         success: function (data) {
-            $('#collapse3').html('<div class="panel-body"><pre>' + data + '</pre></div>');
+            $('#collapse4').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
 });
