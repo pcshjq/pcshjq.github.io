@@ -5,7 +5,7 @@
         window.stop();
         window.location.href = './login.html';
     }
-    else $('.dropdown-toggle').html('使用者: ' + window.name + ' <span class="caret">');
+    $('.dropdown-toggle').html('使用者: ' + window.name + ' <span class="caret">');
 
     var ShopData = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -21,7 +21,7 @@
                     'X-Parse-Application-Id': 'kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu',
                     'X-Parse-REST-API-Key': '17sSFSMl9IuBt4HvQfeJKvpFVQaS6Gjf3qJApUmz'
                 };
-                settings.url = settings.url.replace('%QUERY', query);
+                settings.url = settings.url.replace('%QUERY', encodeURIComponent(query));
                 return settings;
             },
             transform: function (response) {
@@ -87,7 +87,7 @@
                     success: function (upload) {
                         $('.alert').toggleClass('alert-info');
                         $('.alert').toggleClass('alert-success');
-                        $('.alert').text('上傳成功 :)');
+                        $('.alert').text('上傳成功!!');
                         var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
                         $close.appendTo($('.alert'));
 

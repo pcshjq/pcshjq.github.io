@@ -5,7 +5,7 @@
         window.stop();
         window.location.href = './login.html';
     }
-    else $('.dropdown-toggle').html('使用者: ' + window.name + ' <span class="caret">');
+    $('.dropdown-toggle').html('使用者: ' + window.name + ' <span class="caret">');
 
     $.ajax({
         url: 'dcl/Terms_of_Service.txt',

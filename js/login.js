@@ -35,7 +35,7 @@ $(function () {
             success: function (user) {
                 $(":input[type='submit']").removeClass('btn-primary');
                 $(":input[type='submit']").addClass('btn-success');
-                window.name = user.attributes.username;
+                window.name = user.getUsername();
                 window.location.href = './upload.html';
             },
             error: function (user, error) {
