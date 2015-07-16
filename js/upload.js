@@ -22,6 +22,8 @@
                     'X-Parse-Application-Id': 'kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu',
                     'X-Parse-REST-API-Key': '17sSFSMl9IuBt4HvQfeJKvpFVQaS6Gjf3qJApUmz'
                 };
+
+                // aware XSS
                 settings.url = settings.url.replace('%QUERY', encodeURIComponent(query));
                 return settings;
             },
@@ -43,7 +45,6 @@
         source: ShopData
     });
 
-    $('.alert').hide();
     $("#photo_front").fileinput({
         showUpload: false,
         previewFileType: "image",
@@ -64,85 +65,26 @@
         removeLabel: " 刪除",
         removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
     });
+    $('.alert').hide();
 
     $('.row').on('submit', function (e) {
         e.preventDefault();
-        var tShop = Parse.Object.extend('tShop', {
-            create: function (name, address, telephone, business_hours) {
-                if ($('.alert').hasClass('alert-success')) $('.alert').toggleClass('alert-success');
-                if ($('.alert').hasClass('alert-warning')) $('.alert').toggleClass('alert-warning');
-                if ($('.alert').hasClass('alert-danger')) $('.alert').toggleClass('alert-danger');
-                $('.alert').show();
+        var data = $(e.target).serializeArray();
+        if ($('.alert').hasClass('alert-success')) $('.alert').toggleClass('alert-success');
+        if ($('.alert').hasClass('alert-warning')) $('.alert').toggleClass('alert-warning');
+        if ($('.alert').hasClass('alert-danger')) $('.alert').toggleClass('alert-danger');
+        $('.alert').show();
+        if (grecaptcha.getResponse() === '') {
+            $('.alert').toggleClass('alert-warning');
+            $('.alert').text('請驗證非機器人');
+            return;
+        }
+        $('.alert').toggleClass('alert-info');
+        $('.alert').text('上傳中...');
+        $(':input').prop('disabled', true);
+        $('.file-control').fileinput('disable');
 
-                if (grecaptcha.getResponse() === '') {
-                    $('.alert').toggleClass('alert-warning');
-                    $('.alert').text('請驗證非機器人');
-                    return;
-                } else {
-                    var gres = false;
-                    Parse.Cloud.run('grecaptcha', { 'key': grecaptcha.getResponse() }, {
-                        success: function (result) {
-                            gres = result;
-                        },
-                        error: function (error) {
-                            console.log(error);
-                        }
-                    });
-                    if (!gres) {
-                        $('.alert').toggleClass('alert-danger');
-                        $('.alert').text('reCaptcha 伺服器驗證錯誤');
-                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
-                        $close.appendTo($('.alert'));
-                        return;
-                    }
-                }
-                $('.alert').toggleClass('alert-info');
-                $('.alert').text('上傳中...');
-
-                $(':input').prop('disabled', true);
-                $('.file-control').fileinput('disable');
-
-                this.save({
-                    'name': name,
-                    'address': address,
-                    'telephone': telephone,
-                    'business_hours': business_hours,
-                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : window.name
-                }, {
-                    success: function (upload) {
-                        $('.alert').toggleClass('alert-info');
-                        $('.alert').toggleClass('alert-success');
-                        $('.alert').text('上傳成功!!');
-                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
-                        $close.appendTo($('.alert'));
-
-                        $(':input').prop('disabled', false);
-                        $('.file-control').fileinput('enable');
-
-                        $('.form-control').val('');
-                        $('.file-control').fileinput('clear');
-                        $(":input[name='name']").focus();
-                        grecaptcha.reset();
-                    },
-                    error: function (upload, error) {
-                        $('.alert').toggleClass('alert-info');
-                        $('.alert').toggleClass('alert-danger');
-                        $('.alert').text('上傳失敗 :(');
-                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
-                        $close.appendTo($('.alert'));
-
-                        $(':input').prop('disabled', false);
-                        $('.file-control').fileinput('enable');
-                        grecaptcha.reset();
-
-                        console.log(upload);
-                        console.log(error);
-                    }
-                });
-            }
-        });
-        var data = $(e.target).serializeArray(),
-        shop = new tShop();
+        var tShop = Parse.Object.extend('tShop'), shop = new tShop();
         var photoFront = $("#photo_front")[0];
         if (photoFront.files.length > 0) {
             var file = photoFront.files[0];
@@ -157,6 +99,61 @@
             var parseFile = new Parse.File(name, file)
             shop.set("photo_menu", parseFile);
         }
-        shop.create(data[0].value, data[1].value, data[2].value, data[3].value);
+    });
+
+    Parse.Cloud.run('grecaptcha', { 'key': grecaptcha.getResponse() }, {
+        success: function (result) {
+            if (!result) {
+                $('.alert').toggleClass('alert-info');
+                $('.alert').toggleClass('alert-danger');
+                $('.alert').text('reCaptcha 伺服器驗證錯誤');
+                var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                $close.appendTo($('.alert'));
+                $(':input').prop('disabled', false);
+                $('.file-control').fileinput('enable');
+                grecaptcha.reset();
+                return;
+            } else {
+                shop.save({
+                    'name': data[0].value,
+                    'address': data[1].value,
+                    'telephone': data[2].value,
+                    'business_hours': data[3].value,
+                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : window.name
+                }, {
+                    success: function (upload) {
+                        $('.alert').toggleClass('alert-info');
+                        $('.alert').toggleClass('alert-success');
+                        $('.alert').text('上傳成功!!');
+                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                        $close.appendTo($('.alert'));
+                        $(':input').prop('disabled', false);
+                        $('.file-control').fileinput('enable');
+                        grecaptcha.reset();
+
+                        $('.form-control').val('');
+                        $('.file-control').fileinput('clear');
+                        $(":input[name='name']").focus();
+                    },
+                    error: function (upload, error) {
+                        $('.alert').toggleClass('alert-info');
+                        $('.alert').toggleClass('alert-danger');
+                        $('.alert').text('上傳失敗 :(');
+                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                        $close.appendTo($('.alert'));
+                        $(':input').prop('disabled', false);
+                        $('.file-control').fileinput('enable');
+                        grecaptcha.reset();
+                        // upload error
+                        console.log(upload);
+                        console.log(error);
+                    }
+                });
+            }
+        },
+        error: function (error) {
+            // grecaptcha error
+            console.log(error);
+        }
     });
 });
