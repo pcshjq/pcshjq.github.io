@@ -78,6 +78,15 @@
                 $('.alert').show();
                 $('.alert').text('上傳中...');
 
+                Parse.Cloud.run('hello', {}, {
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    error: function (error) {
+
+                    }
+                });
+
                 this.save({
                     'name': name,
                     'address': address,
@@ -98,6 +107,7 @@
                         $('.form-control').val('');
                         $('.file-control').fileinput('clear');
                         $(":input[name='name']").focus();
+                        grecaptcha.reset();
                     },
                     error: function (upload, error) {
                         $('.alert').toggleClass('alert-info');
@@ -108,6 +118,7 @@
 
                         $(':input').prop('disabled', false);
                         $('.file-control').fileinput('enable');
+                        grecaptcha.reset();
 
                         console.log(upload);
                         console.log(error);
