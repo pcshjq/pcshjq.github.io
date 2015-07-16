@@ -99,61 +99,60 @@
             var parseFile = new Parse.File(name, file)
             shop.set("photo_menu", parseFile);
         }
-    });
+        Parse.Cloud.run('grecaptcha', { 'key': grecaptcha.getResponse() }, {
+            success: function (result) {
+                if (!result) {
+                    $('.alert').toggleClass('alert-info');
+                    $('.alert').toggleClass('alert-danger');
+                    $('.alert').text('reCaptcha 伺服器驗證錯誤');
+                    var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                    $close.appendTo($('.alert'));
+                    $(':input').prop('disabled', false);
+                    $('.file-control').fileinput('enable');
+                    grecaptcha.reset();
+                    return;
+                } else {
+                    shop.save({
+                        'name': data[0].value,
+                        'address': data[1].value,
+                        'telephone': data[2].value,
+                        'business_hours': data[3].value,
+                        'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : window.name
+                    }, {
+                        success: function (upload) {
+                            $('.alert').toggleClass('alert-info');
+                            $('.alert').toggleClass('alert-success');
+                            $('.alert').text('上傳成功!!');
+                            var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                            $close.appendTo($('.alert'));
+                            $(':input').prop('disabled', false);
+                            $('.file-control').fileinput('enable');
+                            grecaptcha.reset();
 
-    Parse.Cloud.run('grecaptcha', { 'key': grecaptcha.getResponse() }, {
-        success: function (result) {
-            if (!result) {
-                $('.alert').toggleClass('alert-info');
-                $('.alert').toggleClass('alert-danger');
-                $('.alert').text('reCaptcha 伺服器驗證錯誤');
-                var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
-                $close.appendTo($('.alert'));
-                $(':input').prop('disabled', false);
-                $('.file-control').fileinput('enable');
-                grecaptcha.reset();
-                return;
-            } else {
-                shop.save({
-                    'name': data[0].value,
-                    'address': data[1].value,
-                    'telephone': data[2].value,
-                    'business_hours': data[3].value,
-                    'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : window.name
-                }, {
-                    success: function (upload) {
-                        $('.alert').toggleClass('alert-info');
-                        $('.alert').toggleClass('alert-success');
-                        $('.alert').text('上傳成功!!');
-                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
-                        $close.appendTo($('.alert'));
-                        $(':input').prop('disabled', false);
-                        $('.file-control').fileinput('enable');
-                        grecaptcha.reset();
-
-                        $('.form-control').val('');
-                        $('.file-control').fileinput('clear');
-                        $(":input[name='name']").focus();
-                    },
-                    error: function (upload, error) {
-                        $('.alert').toggleClass('alert-info');
-                        $('.alert').toggleClass('alert-danger');
-                        $('.alert').text('上傳失敗 :(');
-                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
-                        $close.appendTo($('.alert'));
-                        $(':input').prop('disabled', false);
-                        $('.file-control').fileinput('enable');
-                        grecaptcha.reset();
-                        // upload error
-                        console.log(upload);
-                        console.log(error);
-                    }
-                });
+                            $('.form-control').val('');
+                            $('.file-control').fileinput('clear');
+                            $(":input[name='name']").focus();
+                        },
+                        error: function (upload, error) {
+                            $('.alert').toggleClass('alert-info');
+                            $('.alert').toggleClass('alert-danger');
+                            $('.alert').text('上傳失敗 :(');
+                            var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                            $close.appendTo($('.alert'));
+                            $(':input').prop('disabled', false);
+                            $('.file-control').fileinput('enable');
+                            grecaptcha.reset();
+                            // upload error
+                            console.log(upload);
+                            console.log(error);
+                        }
+                    });
+                }
+            },
+            error: function (error) {
+                // grecaptcha error
+                console.log(error);
             }
-        },
-        error: function (error) {
-            // grecaptcha error
-            console.log(error);
-        }
+        });
     });
 });
