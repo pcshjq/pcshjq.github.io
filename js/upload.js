@@ -69,23 +69,38 @@
         e.preventDefault();
         var tShop = Parse.Object.extend('tShop', {
             create: function (name, address, telephone, business_hours) {
-                $(':input').prop('disabled', true);
-                $('.file-control').fileinput('disable');
-
                 if ($('.alert').hasClass('alert-success')) $('.alert').toggleClass('alert-success');
+                if ($('.alert').hasClass('alert-warning')) $('.alert').toggleClass('alert-warning');
                 if ($('.alert').hasClass('alert-danger')) $('.alert').toggleClass('alert-danger');
-                $('.alert').toggleClass('alert-info');
                 $('.alert').show();
+
+                if (grecaptcha.getResponse() === '') {
+                    $('.alert').toggleClass('alert-warning');
+                    $('.alert').text('請驗證非機器人');
+                    return;
+                } else {
+                    var gres = false;
+                    Parse.Cloud.run('grecaptcha', { 'key': grecaptcha.getResponse() }, {
+                        success: function (result) {
+                            gres = result;
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                    if (!gres) {
+                        $('.alert').toggleClass('alert-danger');
+                        $('.alert').text('reCaptcha 伺服器驗證錯誤');
+                        var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                        $close.appendTo($('.alert'));
+                        return;
+                    }
+                }
+                $('.alert').toggleClass('alert-info');
                 $('.alert').text('上傳中...');
 
-                Parse.Cloud.run('grecaptcha', {'key': grecaptcha.getResponse()}, {
-                    success: function (result) {
-                        console.log(result);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+                $(':input').prop('disabled', true);
+                $('.file-control').fileinput('disable');
 
                 this.save({
                     'name': name,
