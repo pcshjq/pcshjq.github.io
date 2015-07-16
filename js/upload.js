@@ -83,7 +83,7 @@
                         console.log(result);
                     },
                     error: function (error) {
-
+                        console.log(error);
                     }
                 });
 
