@@ -78,7 +78,7 @@
                 $('.alert').show();
                 $('.alert').text('上傳中...');
 
-                Parse.Cloud.run('hello', {}, {
+                Parse.Cloud.run('grecaptcha', grecaptcha.getResponse(), {
                     success: function (result) {
                         console.log(result);
                     },
