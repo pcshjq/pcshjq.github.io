@@ -6,7 +6,7 @@
         else window.stop();
         window.location.href = './login.html';
     }
-    $('.dropdown-toggle').html('使用者: ' + window.name + ' <span class="caret">');
+    $('.dropdown-toggle').html('使用者: ' + Parse.User.current().attributes.displayname + ' <span class="caret">');
 
     var ShopData = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -116,8 +116,7 @@
                         'name': data[0].value,
                         'address': data[1].value,
                         'telephone': data[2].value,
-                        'business_hours': data[3].value,
-                        'contributor': $('#cbAnonym').prop('checked') ? 'Anonymous' : window.name
+                        'business_hours': data[3].value
                     }, {
                         success: function (upload) {
                             $('.alert').toggleClass('alert-info');
