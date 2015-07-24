@@ -6,7 +6,7 @@
         else window.stop();
         window.location.href = './login.html';
     }
-    $('.dropdown-toggle').html('使用者: ' + Parse.User.current().attributes.displayname + ' <span class="caret">');
+    $('.dropdown-toggle').html('使用者: ' + Parse.User.current().get('displayname') + ' <span class="caret">');
 
     var ShopData = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),

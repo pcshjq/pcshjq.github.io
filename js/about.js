@@ -6,7 +6,7 @@
         else window.stop();
         window.location.href = './login.html';
     }
-    $('.dropdown-toggle').html('使用者: ' + Parse.User.current().attributes.displayname + ' <span class="caret">');
+    $('.dropdown-toggle').html('使用者: ' + Parse.User.current().get('displayname') + ' <span class="caret">');
 
     $.ajax({
         url: 'dcl/Terms_of_Service.txt',
