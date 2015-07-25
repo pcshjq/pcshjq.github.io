@@ -118,6 +118,7 @@
                         'address': data[2].value,
                         'telephone': data[3].value,
                         'business_hours': data[4].value,
+                        'takeout': $('#takeout')[0].checked,
                         'description': data[5].value
                     }, {
                         success: function (upload) {
