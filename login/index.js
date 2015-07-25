@@ -23,7 +23,7 @@ $(function () {
         // MSIE haz strange compatibility
         if (/msie/.test(navigator.userAgent.toLowerCase())) document.execCommand("Stop");
         else window.stop();
-        window.location.href = 'upload';
+        window.location.href = '../upload';
     }
 
     $('.control-label').hide();
@@ -38,7 +38,7 @@ $(function () {
                 $(":input[type='submit']").removeClass('btn-primary');
                 $(":input[type='submit']").addClass('btn-success');
                 window.name = user.getUsername();
-                window.location.href = 'upload';
+                window.location.href = '../upload';
             },
             error: function (user, error) {
                 $("input[name='password']").val('');

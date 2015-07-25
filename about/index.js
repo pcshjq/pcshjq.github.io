@@ -4,30 +4,30 @@
     if (!Parse.User.current()) {
         if (/msie/.test(navigator.userAgent.toLowerCase())) document.execCommand("Stop");
         else window.stop();
-        window.location.href = './login.html';
+        window.location.href = '../login';
     }
     $('.dropdown-toggle').html('使用者: ' + Parse.User.current().get('displayname') + ' <span class="caret">');
 
     $.ajax({
-        url: 'dcl/Terms_of_Service.txt',
+        url: '../dcl/Terms_of_Service.txt',
         success: function (data) {
             $('#collapse1').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
     $.ajax({
-        url: 'dcl/Privacy_Policy.txt',
+        url: '../dcl/Privacy_Policy.txt',
         success: function (data) {
             $('#collapse2').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
     $.ajax({
-        url: 'dcl/MIT.txt',
+        url: '../dcl/MIT.txt',
         success: function (data) {
             $('#collapse3').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
     $.ajax({
-        url: 'dcl/BSD.txt',
+        url: '../dcl/BSD.txt',
         success: function (data) {
             $('#collapse4').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
