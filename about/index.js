@@ -4,7 +4,7 @@
     if (!Parse.User.current()) {
         if (/msie/.test(navigator.userAgent.toLowerCase())) document.execCommand("Stop");
         else window.stop();
-        window.location.href = '../login';
+        window.location.href = '../login/';
     }
     $('.dropdown-toggle').html('使用者: ' + Parse.User.current().get('displayname') + ' <span class="caret">');
 
