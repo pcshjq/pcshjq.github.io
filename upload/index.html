@@ -34,14 +34,14 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">上傳</a></li>
-                    <li><a href="../about/">關於</a></li>
+                    <li class="active"><a href="#"><i class="glyphicon glyphicon-cloud-upload" style="color:lightskyblue"></i> 上傳</a></li>
+                    <li><a href="../about/"><i class="glyphicon glyphicon-info-sign" style="color:steelblue"></i> 關於</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">使用者</span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user" style="color:lightseagreen"></i>使用者</a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:Parse.User.logOut(); window.location.href='../login/';">登出</a></li>
+                            <li><a href="javascript:Parse.User.logOut(); window.location.href='../login/';"><i class="glyphicon glyphicon-log-out" style="color:orangered"></i> 登出</a></li>
                             <!--<li role="separator" class="divider"></li>
                             <li class="dropdown-header">Nav header</li>-->
                         </ul>
@@ -53,30 +53,29 @@
     <div class="container">
         <div class="row">
             <form class="col-md-4">
-                <h2>上傳新店家</h2>
-                <p>
-                    <label for="inputName" class="sr-only">店名</label>
-                    <input type="text" name="name" class="form-control typeahead" placeholder="店名" required autofocus>
-                    <!--分類-->
-                    <!--位置-->
-                    <label for="inputAddress" class="sr-only">地址</label>
-                    <input type="text" name="address" class="form-control" placeholder="地址">
+                <h2><i class="glyphicon glyphicon-cloud-upload" style="color:lightskyblue"></i> 上傳新店家</h2>
+                <label for="inputName" class="sr-only">店名</label>
+                <input type="text" name="name" class="form-control typeahead" maxlength="30" placeholder="店名" required autofocus>
+                <label for="inputCategory" class="sr-only">分類</label>
+                <input type="text" name="category" class="form-control" maxlength="40" placeholder="分類">
+                <label for="inputAddress" class="sr-only">地址</label>
+                <input type="text" name="address" class="form-control" maxlength="30" placeholder="地址">
+                <div class="input-group">
                     <label for="inputTelephone" class="sr-only">電話</label>
-                    <input type="text" name="telephone" class="form-control" placeholder="電話">
-                    <label for="inputBusinessHours" class="sr-only">營業時間</label>
-                    <input type="text" name="business_hours" class="form-control" placeholder="營業時間">
-                    <label for="photo_front" class="sr-only">上傳店家正面照</label>
-                    <input type="file" name="photo_front" class="file-control" id="photo_front" accept="image/*">
-                    <label for="photo_menu" class="sr-only">上傳菜單</label>
-                    <input type="file" name="photo_menu" class="file-control" id="photo_menu" accept="image/*">
-                </p>
-                <div class="checkbox">
-                    <label for="cbAnonym" class="sr-only">匿名貢獻</label>
-                    <label><input type="checkbox" id="cbAnonym">匿名貢獻</label>
+                    <input type="text" name="telephone" class="form-control" maxlength="30" placeholder="電話">
+                    <span class="input-group-addon"><label><input type="checkbox" id="takeout"> 可外帶</label></span>
                 </div>
-                <div class="g-recaptcha" data-sitekey="6Lc3twkTAAAAAJqWlaXRaO9YDApsLNCiOrYhwVto"></div>
+                <label for="inputBusinessHours" class="sr-only">營業時間</label>
+                <input type="text" name="business_hours" class="form-control" maxlength="50" placeholder="營業時間">
+                <label for="photo_front" class="sr-only">上傳店家正面照</label>
+                <input type="file" name="photo_front" class="file-control" id="photo_front" accept="image/*">
+                <label for="photo_menu" class="sr-only">上傳菜單</label>
+                <input type="file" name="photo_menu" class="file-control" id="photo_menu" accept="image/*">
+                <textarea name="description" class="form-control" rows="6" maxlength="200" style="resize: none;" placeholder="詳細資訊"></textarea>
+                <br /><div class="g-recaptcha" data-sitekey="6Lc3twkTAAAAAJqWlaXRaO9YDApsLNCiOrYhwVto"></div><br />
                 <p>
-                    <button class="btn btn-default" type="submit">上傳</button> <!-- data-loading-text -->
+                    <button class="btn btn-lg btn-block btn-primary" type="submit">上傳</button>
+                    <!-- data-loading-text -->
                 </p>
                 <div class="alert alert-dismissible" role="alert">Alert Text</div>
                 <!-- comfirm button -->

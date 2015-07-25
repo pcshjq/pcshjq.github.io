@@ -20,7 +20,7 @@ $(function () {
     Parse.$ = jQuery;
     Parse.initialize("kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu", "nSJVzXIq2iSBdUUBvLKnpW4okjgZ8SV0Dq3E1IFi");
     if (Parse.User.current()) {
-        // MSIE haz strange compatibility
+        // MSIE compatibility
         if (/msie/.test(navigator.userAgent.toLowerCase())) document.execCommand("Stop");
         else window.stop();
         window.location.href = '../upload/';
@@ -63,7 +63,7 @@ $(function () {
                 $('#btnFB').append('中...');
                 FB.api('/me', function (response) {
                     window.name = response.name;
-                    window.location.href = 'upload';
+                    window.location.href = '../upload/';
                 });
             },
             error: function (user, error) {

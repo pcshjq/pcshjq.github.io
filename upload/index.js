@@ -6,7 +6,7 @@
         else window.stop();
         window.location.href = '../login/';
     }
-    $('.dropdown-toggle').html('使用者: ' + Parse.User.current().get('displayname') + ' <span class="caret">');
+    $('.dropdown-toggle').html('<i class="glyphicon glyphicon-user"  style="color:lightseagreen"></i> ' + Parse.User.current().get('displayname') + ' <span class="caret">');
 
     var ShopData = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -114,9 +114,11 @@
                 } else {
                     shop.save({
                         'name': data[0].value,
-                        'address': data[1].value,
-                        'telephone': data[2].value,
-                        'business_hours': data[3].value
+                        'category': data[1].value,
+                        'address': data[2].value,
+                        'telephone': data[3].value,
+                        'business_hours': data[4].value,
+                        'description': data[5].value
                     }, {
                         success: function (upload) {
                             $('.alert').toggleClass('alert-info');

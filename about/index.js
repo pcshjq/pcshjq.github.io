@@ -6,7 +6,7 @@
         else window.stop();
         window.location.href = '../login/';
     }
-    $('.dropdown-toggle').html('使用者: ' + Parse.User.current().get('displayname') + ' <span class="caret">');
+    $('.dropdown-toggle').html('<i class="glyphicon glyphicon-user"  style="color:lightseagreen"></i> ' + Parse.User.current().get('displayname') + ' <span class="caret">');
 
     $.ajax({
         url: '../dcl/Terms_of_Service.txt',
@@ -18,18 +18,6 @@
         url: '../dcl/Privacy_Policy.txt',
         success: function (data) {
             $('#collapse2').html('<div class="panel-body"><pre>' + data + '</pre></div>');
-        }
-    });
-    $.ajax({
-        url: '../dcl/MIT.txt',
-        success: function (data) {
-            $('#collapse3').html('<div class="panel-body"><pre>' + data + '</pre></div>');
-        }
-    });
-    $.ajax({
-        url: '../dcl/BSD.txt',
-        success: function (data) {
-            $('#collapse4').html('<div class="panel-body"><pre>' + data + '</pre></div>');
         }
     });
 });
