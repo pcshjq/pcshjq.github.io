@@ -1,0 +1,60 @@
+img.background
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    width: 450px;
+    height: 450px;
+}
+
+img.mobile
+{
+    position: absolute;
+    z-index: -1;
+    top: 25px;
+    right: 32px;
+    border: 0;
+}
+
+img.logo
+{
+    width: 100px;
+    height: 100px;
+}
+
+div.nav
+{
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    border: 1px solid transparent;
+    height: 50px;
+    width: 100%;
+    background-color: #e7e7e7;
+}
+
+div.main
+{
+    position: absolute;
+    top: 250px;
+    left: 250px;
+    border: 1px solid transparent;
+    border-bottom-width: 10px;
+    background-color: #fff;
+}
+
+@media all and (max-width: 1000 px)
+{
+    img.background
+    {
+        width: 250px;
+        height: 250px;
+    }
+    
+    div.main
+    {
+        top: 310px;
+        left: 25px;
+    }
+}
