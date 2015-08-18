@@ -1,5 +1,4 @@
-img.background
-{
+img.background {
     position: absolute;
     top: 0;
     left: 0;
@@ -8,8 +7,14 @@ img.background
     height: 450px;
 }
 
-img.mobile
-{
+@media all and (max-width: 950px) {
+    img.background {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+img.mobile {
     position: absolute;
     z-index: -1;
     top: 25px;
@@ -17,14 +22,12 @@ img.mobile
     border: 0;
 }
 
-img.logo
-{
+img.logo {
     width: 100px;
     height: 100px;
 }
 
-div.nav
-{
+div.nav {
     position: absolute;
     z-index: -2;
     top: 0;
@@ -34,8 +37,7 @@ div.nav
     background-color: #e7e7e7;
 }
 
-div.main
-{
+div.main {
     position: absolute;
     top: 250px;
     left: 250px;
@@ -44,17 +46,16 @@ div.main
     background-color: #fff;
 }
 
-@media all and (max-width: 1000 px)
-{
-    img.background
-    {
-        width: 250px;
-        height: 250px;
-    }
-    
-    div.main
-    {
+@media all and (max-width: 950px) {
+    div.main {
         top: 310px;
-        left: 25px;
+        left: 50px;
     }
+}
+
+a.error {
+    position: absolute;
+    bottom: 3px;
+    left: 5px;
+    color: #607d8b;
 }

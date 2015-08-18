@@ -16,7 +16,7 @@
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: 'https://api.parse.com/1/classes/Shop?where={"name":{"$regex":"%QUERY"}}&limit=20',
+            url: 'https://api.parse.com/1/classes/Shop?where={"name":{"$regex":"%QUERY"}}&limit=10',
             wildcard: '%QUERY',
             prepare: function (query, settings) {
                 // settings.type (method for jQuery 1.9+) default is GET
@@ -26,8 +26,6 @@
                     'X-Parse-Application-Id': 'kMUH1stxvfuI5IxWHoA8x3rCaEqBWYgNUx5Wembu',
                     'X-Parse-REST-API-Key': '17sSFSMl9IuBt4HvQfeJKvpFVQaS6Gjf3qJApUmz'
                 };
-
-                // aware XSS
                 settings.url = settings.url.replace('%QUERY', encodeURIComponent(query));
                 return settings;
             },
@@ -108,7 +106,7 @@
                 if (!result) {
                     $('.alert').toggleClass('alert-info');
                     $('.alert').toggleClass('alert-danger');
-                    $('.alert').text('reCaptcha 伺服器驗證錯誤');
+                    $('.alert').text('reCaptcha 伺服器驗證錯誤,請再嘗試一次');
                     var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
                     $close.appendTo($('.alert'));
                     $(':input').prop('disabled', false);
@@ -142,22 +140,27 @@
                         error: function (upload, error) {
                             $('.alert').toggleClass('alert-info');
                             $('.alert').toggleClass('alert-danger');
-                            $('.alert').text('上傳失敗 :(');
+                            $('.alert').text('上傳失敗, 請再嘗試一次,或回報給管理員');
                             var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
                             $close.appendTo($('.alert'));
                             $(':input').prop('disabled', false);
                             $('.file-control').fileinput('enable');
                             grecaptcha.reset();
-                            // upload error
-                            console.log(upload);
-                            console.log(error);
+                            // console.log(upload, error);
                         }
                     });
                 }
             },
             error: function (error) {
-                // grecaptcha error
-                console.log(error);
+                $('.alert').toggleClass('alert-info');
+                $('.alert').toggleClass('alert-danger');
+                $('.alert').text('伺服器錯誤,請再嘗試一次,或回報給管理員');
+                var $close = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: block;"><span aria-hidden="true">×</span></button>');
+                $close.appendTo($('.alert'));
+                $(':input').prop('disabled', false);
+                $('.file-control').fileinput('enable');
+                grecaptcha.reset();
+                // console.log(error);
             }
         });
     });
