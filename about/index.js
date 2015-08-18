@@ -11,17 +11,7 @@
         else console.log("看來您很喜歡探索新事物！我們喜歡好奇的人，您應該加入我們並且一起建造這個偉大的APP!");
     }
     $('.dropdown-toggle').html('<i class="glyphicon glyphicon-user"  style="color:lightseagreen"></i> ' + Parse.User.current().get('displayname') + ' <span class="caret">');
-
-    $.ajax({
-        url: '../dcl/Terms_of_Service.txt',
-        success: function (data) {
-            $('#collapse1').html('<div class="panel-body"><pre>' + data + '</pre></div>');
-        }
-    });
-    $.ajax({
-        url: '../dcl/Privacy_Policy.txt',
-        success: function (data) {
-            $('#collapse2').html('<div class="panel-body"><pre>' + data + '</pre></div>');
-        }
-    });
+    $('#announcement .panel-body').load('../dcl/Join_Us.txt');
+    $('#declaration #collapse1 .panel-body').load('../dcl/Terms_of_Service.txt');
+    $('#declaration #collapse2 .panel-body').load('../dcl/Privacy_Policy.txt');
 });
