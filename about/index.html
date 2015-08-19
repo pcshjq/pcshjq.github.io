@@ -7,8 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!--meta name="author" content=""-->
     <meta name="author" content="Scott, C">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <meta name="description" content="關於府中小吃趣">
     <link rel="icon" href="../img/fav-16.ico" sizes="16x16">
     <link rel="icon" href="../img/fav-32.ico" sizes="32x32">
     <link rel="publisher" href="//pcshjq.github.io/"/>
@@ -39,7 +38,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="../upload/"><i class="glyphicon glyphicon-cloud-upload" style="color:lightskyblue"></i> 更新店家</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:Parse.User.logOut(); window.location.href='../login/';"><i class="glyphicon glyphicon-log-out" style="color:orangered"></i> 登出</a></li>
+                            <li><a href="javascript:Parse.User.logOut(); window.location.href='..';"><i class="glyphicon glyphicon-log-out" style="color:orangered"></i> 登出</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -48,7 +47,14 @@
     </nav>
     <div class="container">
         <div class="jumbotron" style="background-color: #F8B51C;">
-            <h1><img alt="府中小吃趣" src="../img/title.png" /></h1>
+            <style>
+            @media all and (max-width: 768px) {
+                img.title {
+                    height: 40px;
+                }
+            }
+            </style>
+            <h1><img class="title" alt="府中小吃趣" src="../img/title.png" /></h1>
             <p>感謝您的參與</p>
             <p><a href="https://play.google.com/store/apps/details?id=io.github.pcshjq"><img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" /></a></p>
         </div>
