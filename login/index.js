@@ -24,12 +24,9 @@ $(function () {
         else window.stop();
         window.location.href = '../upload/';
     }
-    if (typeof console == "object") {
-        if (navigator.userAgent.match(/Chrome/)) console.log("%c看來您很喜歡探索新事物！我們喜歡好奇的人，您應該加入我們並且一起建造這個偉大的APP!", "color: #ff5722; font-size: 25px;");
-        else console.log("看來您很喜歡探索新事物！我們喜歡好奇的人，您應該加入我們並且一起建造這個偉大的APP!");
-    }
+    // Error label
     $('.control-label').hide();
-
+    // Admin Sign in
     $('.form-signin').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serializeArray(),
@@ -51,7 +48,7 @@ $(function () {
             }
         });
     });
-
+    // FB Sign in
     $('#btnFB').click(function () {
         Parse.FacebookUtils.logIn(null, {
             success: function (user) {
@@ -75,4 +72,9 @@ $(function () {
             }
         });
     });
+    // Console Easter egg
+    if (typeof console == "object") {
+        if (navigator.userAgent.match(/Chrome/)) console.log("%c看來您很喜歡探索新事物！我們喜歡好奇的人，您應該加入我們並且一起建造這個偉大的APP!", "color: #ff5722; font-size: 25px;");
+        else console.log("看來您很喜歡探索新事物！我們喜歡好奇的人，您應該加入我們並且一起建造這個偉大的APP!");
+    }
 });

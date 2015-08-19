@@ -6,16 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!--meta name="author" content=""-->
+    <meta name="author" content="Scott, C">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <!--link rel="icon" href="../favicon.ico"-->
+    <link rel="icon" href="../img/fav-16.ico" sizes="16x16">
+    <link rel="icon" href="../img/fav-32.ico" sizes="32x32">
+    <link rel="publisher" href="//pcshjq.github.io/"/>
 
     <title>府中小吃趣</title>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="index.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//www.parsecdn.com/js/parse-1.4.2.min.js"></script>
     <script src="index.js" charset="UTF-8"></script>
 </head>
 
@@ -23,15 +26,16 @@
     <div id="fb-root"></div>
     <div class="main-container">
         <form class="form-signin">
-            <h2 class="form-signin-heading">府中小吃趣 登入</h2>
+            <h2 class="form-signin-heading"><a href=".."><img src="../img/logo.png" height="34px" /><img alt="府中小吃趣" src="../img/title.png" height="34px" /></a></h2>
+            <h4 class="form-signin">管理員登入</h4>
             <label for="inputUsername" class="sr-only">帳號</label>
             <label class="control-label" for="inputError">帳號或密碼錯誤</label>
             <input type="text" name="username" class="form-control" placeholder="請輸入帳號" required autofocus>
             <label for="inputPassword" class="sr-only">密碼</label>
             <input type="password" name="password" class="form-control" placeholder="請輸入密碼" required>
             <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
-            <h4 class="form-signin">或者使用</h4>
-            <button class="btn btn-lg btn-info btn-block" id="btnFB">Facebook登入</button>
+            <h4 class="form-signin">或者連結</h4>
+            <button class="btn btn-lg btn-info btn-block" id="btnFB">Facebook 登入</button>
         </form>
     </div>
 </body>
