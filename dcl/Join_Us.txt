@@ -1,1 +1,8 @@
-Here put how to join us.
+﻿<h4>我們需要熱情的你!</h4>
+<p><ul>
+	<li>小編：粉絲頁經營</li>
+	<li>公關：邀請其他學校</li>
+	<li>宣傳：透過粉絲頁以外方式宣傳</li>
+	<li>美宣：視覺設計</li>
+</ul>
+<a href="//docs.google.com/forms/d/1wzUZKkIhcUczv4QpCPyaVFXT4LoDqt2tr9nqGXcxdTw/viewform?c=0&w=1">點此進入</a></p>
